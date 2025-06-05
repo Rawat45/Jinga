@@ -1,0 +1,52 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class VotingEligibility extends JFrame implements ActionListener {
+
+    JLabel label, resultLabel;
+    JTextField ageField;
+    JButton checkBtn;
+
+    public VotingEligibility() {
+        setTitle("Voting Eligibility Checker");
+        setSize(300, 200);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new FlowLayout());
+
+        // Create components
+        label = new JLabel("Enter your age:");
+        ageField = new JTextField(10);
+        checkBtn = new JButton("Check Eligibility");
+        resultLabel = new JLabel("");  // This will display the result
+
+        // Add action listener
+        checkBtn.addActionListener(this);
+
+        // Add components to the frame
+        add(label);
+        add(ageField);
+        add(checkBtn);
+        add(resultLabel);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        try {
+            int age = Integer.parseInt(ageField.getText());
+            if (age >= 18) {
+                resultLabel.setText("You are eligible to vote.");
+            } else {
+                resultLabel.setText("You are NOT eligible to vote.");
+            }
+        } catch (NumberFormatException ex) {
+            resultLabel.setText("Please enter a valid integer age.");
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            VotingEligibility ve = new VotingEligibility();
+            ve.setVisible(true);
+        });
+    }
+}
